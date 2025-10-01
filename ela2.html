@@ -109,16 +109,6 @@
                 </div>
             </section>
             
-            <section id="support-values">
-                <h2 class="text-3xl font-bold text-[#011936] text-center mb-4">Valores Máximos do Apoio por Equipamento</h2>
-                 <p class="text-center text-gray-600 mb-8">O programa financia apenas a troca de um equipamento a gás por um elétrico equivalente.</p>
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <div class="chart-container">
-                        <canvas id="supportChart"></canvas>
-                    </div>
-                </div>
-            </section>
-
             <section id="how-to-apply">
                 <h2 class="text-3xl font-bold text-[#011936] text-center mb-10">Como Submeter a Candidatura: Passo a Passo</h2>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-x-12 gap-y-8">
@@ -185,6 +175,16 @@
                     </div>
                 </section>
             </div>
+
+            <section id="support-values">
+                <h2 class="text-3xl font-bold text-[#011936] text-center mb-4">Valores Máximos do Apoio por Equipamento</h2>
+                 <p class="text-center text-gray-600 mb-8">O programa financia apenas a troca de um equipamento a gás por um elétrico equivalente.</p>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="chart-container">
+                        <canvas id="supportChart"></canvas>
+                    </div>
+                </div>
+            </section>
             
         </main>
 
@@ -195,7 +195,6 @@
     </div>
 
     <script>
-        // O CÓDIGO DA IA FOI REMOVIDO. APENAS O CÓDIGO DO GRÁFICO PERMANECE.
         document.addEventListener('DOMContentLoaded', function () {
             const ctx = document.getElementById('supportChart').getContext('2d');
             const data = {
