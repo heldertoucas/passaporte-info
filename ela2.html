@@ -61,9 +61,6 @@
                 border-left: 15px solid #FFB10A;
             }
         }
-        #gemini-result-container {
-            white-space: pre-wrap;
-        }
     </style>
 </head>
 <body class="bg-[#F6F7F8]">
@@ -79,7 +76,7 @@
             <section id="what-is-it">
                 <div class="bg-white rounded-lg shadow-md p-6 md:p-8 text-center">
                     <h2 class="text-3xl font-bold text-[#00A6ED] mb-4">O que é o Programa e-Lar?</h2>
-                    <img src="imagem-elar.jpg" alt="Imagem de eletrodomésticos modernos e eficientes numa cozinha" class="rounded-lg shadow-sm mb-6 w-full h-auto object-cover mx-auto max-w-3xl">
+                    <img src="imagem-e-lar.jpg" alt="Cozinha moderna com equipamentos elétricos eficientes do programa e-Lar" class="rounded-lg shadow-sm mb-6 w-full h-auto object-cover mx-auto max-w-3xl">
                     <p class="text-lg text-[#011936] max-w-4xl mx-auto">
                         É um apoio do Fundo Ambiental para ajudar as famílias a <strong class="text-[#00A6ED]">substituir equipamentos domésticos a gás</strong> (esquentadores, fogões, fornos) por <strong class="text-[#00A6ED]">equipamentos elétricos novos e mais eficientes</strong> (classe A ou superior). O objetivo é aumentar a segurança, reduzir a conta de energia e o impacto ambiental, através de um <strong class="font-bold">voucher que não exige pagamento adiantado</strong>.
                     </p>
@@ -112,6 +109,16 @@
                 </div>
             </section>
             
+            <section id="support-values">
+                <h2 class="text-3xl font-bold text-[#011936] text-center mb-4">Valores Máximos do Apoio por Equipamento</h2>
+                 <p class="text-center text-gray-600 mb-8">O programa financia apenas a troca de um equipamento a gás por um elétrico equivalente.</p>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="chart-container">
+                        <canvas id="supportChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
             <section id="how-to-apply">
                 <h2 class="text-3xl font-bold text-[#011936] text-center mb-10">Como Submeter a Candidatura: Passo a Passo</h2>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-x-12 gap-y-8">
@@ -179,43 +186,6 @@
                 </section>
             </div>
             
-            <section id="support-values">
-                <h2 class="text-3xl font-bold text-[#011936] text-center mb-4">Valores Máximos do Apoio por Equipamento</h2>
-                 <p class="text-center text-gray-600 mb-8">O programa financia apenas a troca de um equipamento a gás por um elétrico equivalente.</p>
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <div class="chart-container">
-                        <canvas id="supportChart"></canvas>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="gemini-helper">
-                <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
-                    <h2 class="text-3xl font-bold text-center text-[#011936] mb-2">Precisa de Ajuda Personalizada? ✨</h2>
-                    <p class="text-center text-gray-600 mb-6">Tem uma dúvida específica ou não sabe como escrever um email a pedir ajuda? Escreva o seu problema abaixo e o nosso assistente virtual pode ajudar.</p>
-                    
-                    <textarea id="user-prompt" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#00A6ED] focus:border-transparent transition" rows="4" placeholder="Exemplo: Não consigo encontrar o meu NISS. Onde posso encontrá-lo?"></textarea>
-                    
-                    <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mt-4">
-                        <button id="gemini-answer-btn" class="w-full sm:w-auto bg-[#00A6ED] text-white font-bold py-2 px-6 rounded-lg hover:bg-opacity-80 transition-transform transform hover:scale-105">
-                            ✨ Obter Resposta
-                        </button>
-                        <button id="gemini-email-btn" class="w-full sm:w-auto bg-[#011936] text-white font-bold py-2 px-6 rounded-lg hover:bg-opacity-80 transition-transform transform hover:scale-105">
-                            ✨ Criar Rascunho de Email
-                        </button>
-                    </div>
-
-                    <div id="gemini-loading" class="hidden text-center mt-6">
-                        <p class="text-[#011936] animate-pulse">A gerar a sua resposta...</p>
-                    </div>
-
-                    <div id="gemini-output" class="hidden mt-6 bg-gray-50 p-4 rounded-lg border border-gray-200 relative">
-                        <button id="copy-btn" class="absolute top-2 right-2 bg-gray-200 hover:bg-gray-300 text-gray-700 text-xs font-bold py-1 px-2 rounded">Copiar</button>
-                        <p id="gemini-result-container" class="text-gray-800"></p>
-                    </div>
-                </div>
-            </section>
-
         </main>
 
         <footer class="text-center mt-16 pt-8 border-t border-gray-300">
@@ -225,6 +195,7 @@
     </div>
 
     <script>
+        // O CÓDIGO DA IA FOI REMOVIDO. APENAS O CÓDIGO DO GRÁFICO PERMANECE.
         document.addEventListener('DOMContentLoaded', function () {
             const ctx = document.getElementById('supportChart').getContext('2d');
             const data = {
@@ -298,108 +269,6 @@
             };
 
             new Chart(ctx, config);
-
-            // Gemini API functionality
-            const answerBtn = document.getElementById('gemini-answer-btn');
-            const emailBtn = document.getElementById('gemini-email-btn');
-            const userInput = document.getElementById('user-prompt');
-            const loadingIndicator = document.getElementById('gemini-loading');
-            const outputContainer = document.getElementById('gemini-output');
-            const resultText = document.getElementById('gemini-result-container');
-            const copyBtn = document.getElementById('copy-btn');
-            
-            const apiKey = "";
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-
-            const systemPrompt = "Aja como um assistente virtual especializado no programa 'e-Lar' de Portugal. As suas respostas devem ser em português (de Portugal), extremamente simples, claras e encorajadoras, destinadas a pessoas com pouca literacia digital. Evite jargão técnico. Foque-se em ser prático e útil.";
-
-            answerBtn.addEventListener('click', () => handleApiCall('answer'));
-            emailBtn.addEventListener('click', () => handleApiCall('email'));
-
-            copyBtn.addEventListener('click', () => {
-                const textToCopy = resultText.innerText;
-                const tempTextArea = document.createElement('textarea');
-                tempTextArea.value = textToCopy;
-                document.body.appendChild(tempTextArea);
-                tempTextArea.select();
-                try {
-                    document.execCommand('copy');
-                    copyBtn.textContent = 'Copiado!';
-                    setTimeout(() => { copyBtn.textContent = 'Copiar'; }, 2000);
-                } catch (err) {
-                    console.error('Falha ao copiar texto: ', err);
-                }
-                document.body.removeChild(tempTextArea);
-            });
-
-            async function handleApiCall(type) {
-                const userQuery = userInput.value.trim();
-                if (!userQuery) {
-                    alert('Por favor, escreva a sua dúvida ou problema na caixa de texto.');
-                    return;
-                }
-
-                loadingIndicator.classList.remove('hidden');
-                outputContainer.classList.add('hidden');
-                answerBtn.disabled = true;
-                emailBtn.disabled = true;
-
-                let finalPrompt = '';
-                if (type === 'answer') {
-                    finalPrompt = `Contexto sobre o programa e-Lar: O programa apoia a troca de equipamentos a gás por elétricos eficientes. É para residentes em Portugal com contrato de eletricidade. Há 3 grupos de beneficiários, sendo os grupos I e II (com Tarifa Social ou de 'Bairros + Sustentáveis') os mais apoiados, incluindo transporte e instalação. A candidatura é online no site do Fundo Ambiental. Dúvida do utilizador: "${userQuery}". Responda diretamente e de forma simples a esta dúvida.`;
-                } else { // email
-                    finalPrompt = `O utilizador precisa de ajuda com a sua candidatura ao programa e-Lar e descreve o seu problema da seguinte forma: "${userQuery}". Crie um rascunho de um email formal mas simples que ele possa enviar para o balcão de atendimento do Fundo Ambiental. O email deve explicar o problema e pedir ajuda. Inclua placeholders como [O SEU NOME] e [O SEU NIF].`;
-                }
-                
-                try {
-                    const result = await callGeminiWithRetry(finalPrompt);
-                    resultText.textContent = result;
-                    outputContainer.classList.remove('hidden');
-                } catch (error) {
-                    resultText.textContent = 'Ocorreu um erro ao tentar gerar a resposta. Por favor, tente novamente mais tarde.';
-                    outputContainer.classList.remove('hidden');
-                    console.error("Erro na chamada à API:", error);
-                } finally {
-                    loadingIndicator.classList.add('hidden');
-                    answerBtn.disabled = false;
-                    emailBtn.disabled = false;
-                }
-            }
-            
-            async function callGeminiWithRetry(prompt, retries = 3, delay = 1000) {
-                for (let i = 0; i < retries; i++) {
-                    try {
-                        const payload = {
-                            contents: [{ parts: [{ text: prompt }] }],
-                            systemInstruction: {
-                                parts: [{ text: systemPrompt }]
-                            },
-                        };
-
-                        const response = await fetch(apiUrl, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(payload)
-                        });
-
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-
-                        const result = await response.json();
-                        const candidate = result.candidates?.[0];
-
-                        if (candidate && candidate.content?.parts?.[0]?.text) {
-                            return candidate.content.parts[0].text;
-                        } else {
-                            throw new Error('Resposta da API inválida ou vazia.');
-                        }
-                    } catch (error) {
-                        if (i === retries - 1) throw error;
-                        await new Promise(res => setTimeout(res, delay * Math.pow(2, i)));
-                    }
-                }
-            }
         });
     </script>
 </body>
