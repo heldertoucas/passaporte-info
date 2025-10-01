@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Rápido: Programa e-Lar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 500px;
+            }
+        }
+        .flowchart-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        .flowchart-step-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .flowchart-arrow {
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .flowchart-arrow {
+                display: block;
+                position: absolute;
+                top: 25px;
+                right: -40px;
+                width: 0;
+                height: 0;
+                border-top: 10px solid transparent;
+                border-bottom: 10px solid transparent;
+                border-left: 15px solid #FFB10A;
+            }
+        }
+        #gemini-result-container {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body class="bg-[#F6F7F8]">
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#011936] mb-2">Informações úteis: Programa e-Lar</h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">Um guia simplificado para apoiar formandos, em especial adultos vulneráveis, a aceder ao programa de eficiência energética.</p>
+        </header>
+
+        <main class="space-y-16">
+
+            <section id="what-is-it">
+                <div class="bg-white rounded-lg shadow-md p-6 md:p-8 text-center">
+                    <h2 class="text-3xl font-bold text-[#00A6ED] mb-4">O que é o Programa e-Lar?</h2>
+                    <img src="https://placehold.co/800x300/F0F9FF/011936?text=Equipamentos+Eficientes" alt="Imagem de eletrodomésticos modernos e eficientes numa cozinha" class="rounded-lg shadow-sm mb-6 w-full h-auto object-cover mx-auto max-w-3xl">
+                    <p class="text-lg text-[#011936] max-w-4xl mx-auto">
+                        É um apoio do Fundo Ambiental para ajudar as famílias a <strong class="text-[#00A6ED]">substituir equipamentos domésticos a gás</strong> (esquentadores, fogões, fornos) por <strong class="text-[#00A6ED]">equipamentos elétricos novos e mais eficientes</strong> (classe A ou superior). O objetivo é aumentar a segurança, reduzir a conta de energia e o impacto ambiental, através de um <strong class="font-bold">voucher que não exige pagamento adiantado</strong>.
+                    </p>
+                </div>
+            </section>
+
+            <section id="who-can-apply">
+                <h2 class="text-3xl font-bold text-[#011936] text-center mb-8">Quem se pode candidatar?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-lg shadow-md p-6 border-t-4 border-[#00A6ED]">
+                        <h3 class="text-xl font-bold text-[#011936] mb-3">Grupo I e II (Vulneráveis)</h3>
+                        <p class="text-gray-700 mb-4">Pessoas que beneficiam da <strong>Tarifa Social de Energia Elétrica (TSEE)</strong> ou que participam no programa <strong>"Bairros + Sustentáveis"</strong>.</p>
+                        <ul class="text-left space-y-2">
+                            <li class="flex items-start"><span class="text-green-500 font-bold mr-2">✔</span> <strong>Apoio mais elevado.</strong></li>
+                            <li class="flex items-start"><span class="text-green-500 font-bold mr-2">✔</span> <strong>Transporte e instalação incluídos</strong> no apoio.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6 border-t-4 border-[#FFB10A]">
+                        <h3 class="text-xl font-bold text-[#011936] mb-3">Grupo III (Público Geral)</h3>
+                        <p class="text-gray-700 mb-4">Qualquer pessoa com um <strong>contrato de fornecimento de eletricidade</strong> em seu nome.</p>
+                        <ul class="text-left space-y-2">
+                            <li class="flex items-start"><span class="text-green-500 font-bold mr-2">✔</span> Apoio para a compra de equipamentos.</li>
+                            <li class="flex items-start"><span class="text-red-500 font-bold mr-2">✘</span> Transporte e instalação <strong>não incluídos</strong>.</li>
+                        </ul>
+                    </div>
+                     <div class="bg-[#011936] rounded-lg shadow-md p-6 text-white">
+                        <h3 class="text-xl font-bold text-white mb-3">Requisito Comum</h3>
+                        <p class="text-gray-200">O candidato deve ser <strong>maior de idade</strong> e o contrato de eletricidade da habitação tem de estar em seu nome, mesmo que a casa seja arrendada.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="how-to-apply">
+                <h2 class="text-3xl font-bold text-[#011936] text-center mb-10">Como Submeter a Candidatura: Passo a Passo</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-x-12 gap-y-8">
+                    <div class="flowchart-step">
+                        <div class="flowchart-step-number bg-[#00A6ED] text-white">1</div>
+                        <h3 class="font-bold text-lg text-[#011936]">Registo no Portal</h3>
+                        <p class="text-gray-600 text-sm">Aceder ao site <strong class="text-[#00A6ED]">www.fundoambiental.pt</strong> e criar um registo. Mesmo quem já se registou para apoios anteriores, precisa de um novo registo específico para o e-Lar.</p>
+                        <div class="flowchart-arrow"></div>
+                    </div>
+                    <div class="flowchart-step">
+                        <div class="flowchart-step-number bg-[#00A6ED] text-white">2</div>
+                        <h3 class="font-bold text-lg text-[#011936]">Preencher Formulário</h3>
+                        <p class="text-gray-600 text-sm">Com o registo feito, preencher o formulário de candidatura ao programa e-Lar com os dados pessoais e da habitação e submeter os documentos necessários.</p>
+                        <div class="flowchart-arrow"></div>
+                    </div>
+                    <div class="flowchart-step">
+                        <div class="flowchart-step-number bg-[#00A6ED] text-white">3</div>
+                        <h3 class="font-bold text-lg text-[#011936]">Receber e Aceitar</h3>
+                        <p class="text-gray-600 text-sm">Após aprovação, o candidato recebe um email para assinar o <strong>Termo de Aceitação</strong> na plataforma. Tem <strong>5 dias úteis</strong> para o fazer. Depois de aceitar, recebe o "Voucher e-Lar" digital.</p>
+                        <div class="flowchart-arrow"></div>
+                    </div>
+                    <div class="flowchart-step">
+                        <div class="flowchart-step-number bg-[#FFB10A] text-[#011936]">4</div>
+                        <h3 class="font-bold text-lg text-[#011936]">Usar o Voucher</h3>
+                        <p class="text-gray-600 text-sm">Com o voucher (válido por 60 dias), o beneficiário dirige-se a uma loja da rede de fornecedores qualificados (lista no site) para escolher o equipamento. O fornecedor trata de tudo a partir daqui.</p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <section id="checklist">
+                    <h2 class="text-2xl font-bold text-[#011936] mb-6">O que é preciso ter à mão?</h2>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <ul class="space-y-4">
+                            <li class="flex items-center"><span class="text-[#00A6ED] text-2xl mr-3">✓</span> Nome completo</li>
+                            <li class="flex items-center"><span class="text-[#00A6ED] text-2xl mr-3">✓</span> NIF (Número de Contribuinte)</li>
+                            <li class="flex items-center"><span class="text-[#00A6ED] text-2xl mr-3">✓</span> NISS (Número de Segurança Social)</li>
+                            <li class="flex items-center"><span class="text-[#00A6ED] text-2xl mr-3">✓</span> Morada completa da habitação</li>
+                            <li class="flex items-center"><span class="text-[#00A6ED] text-2xl mr-3">✓</span> <strong>Código CPE</strong> (encontra-se na fatura da eletricidade)</li>
+                            <li class="flex items-center"><span class="text-[#00A6ED] text-2xl mr-3">✓</span> <strong>Fotografia nítida do equipamento a gás</strong> que vai substituir</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="faq">
+                    <h2 class="text-2xl font-bold text-[#011936] mb-6">Dúvidas Frequentes e Alertas</h2>
+                    <div class="bg-white rounded-lg shadow-md p-6 space-y-6">
+                        <div class="border-l-4 border-[#FFB10A] pl-4">
+                            <p class="font-bold text-[#011936]">ALERTA IMPORTANTE PARA O FORMADOR:</p>
+                            <p class="text-gray-700">A página de submissão da candidatura <strong>não está otimizada para telemóveis</strong>. É fundamental que o formando faça a candidatura num <strong>computador</strong> para evitar erros e dificuldades.</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-[#011936]">"O meu forno já é elétrico, mas é antigo. Pode ser substituído?"</p>
+                            <p class="text-gray-700"><strong>Não.</strong> O programa destina-se <span class="font-bold">exclusivamente</span> à substituição de equipamentos que funcionam a gás (ex: gás de botija ou gás natural) por novos equipamentos elétricos. Um equipamento elétrico antigo não é elegível para troca.</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-[#011936]">"Tenho de pagar alguma coisa e depois sou reembolsado?"</p>
+                            <p class="text-gray-700"><strong>Não.</strong> O sistema funciona com um voucher. O beneficiário não precisa de adiantar dinheiro, a não ser que o preço do equipamento escolhido seja superior ao valor máximo do apoio. Nesse caso, paga apenas a diferença.</p>
+                        </div>
+                         <div>
+                            <p class="font-bold text-[#011936]">"O que acontece ao meu equipamento antigo?"</p>
+                            <p class="text-gray-700">O fornecedor do novo equipamento é <strong>obrigado a recolher o antigo</strong> no momento da entrega e a encaminhá-lo para reciclagem, sem custos para o beneficiário.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+            <section id="support-values">
+                <h2 class="text-3xl font-bold text-[#011936] text-center mb-4">Valores Máximos do Apoio por Equipamento</h2>
+                 <p class="text-center text-gray-600 mb-8">O programa financia apenas a troca de um equipamento a gás por um elétrico equivalente.</p>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="chart-container">
+                        <canvas id="supportChart"></canvas>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="gemini-helper">
+                <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                    <h2 class="text-3xl font-bold text-center text-[#011936] mb-2">Precisa de Ajuda Personalizada? ✨</h2>
+                    <p class="text-center text-gray-600 mb-6">Tem uma dúvida específica ou não sabe como escrever um email a pedir ajuda? Escreva o seu problema abaixo e o nosso assistente virtual pode ajudar.</p>
+                    
+                    <textarea id="user-prompt" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#00A6ED] focus:border-transparent transition" rows="4" placeholder="Exemplo: Não consigo encontrar o meu NISS. Onde posso encontrá-lo?"></textarea>
+                    
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mt-4">
+                        <button id="gemini-answer-btn" class="w-full sm:w-auto bg-[#00A6ED] text-white font-bold py-2 px-6 rounded-lg hover:bg-opacity-80 transition-transform transform hover:scale-105">
+                            ✨ Obter Resposta
+                        </button>
+                        <button id="gemini-email-btn" class="w-full sm:w-auto bg-[#011936] text-white font-bold py-2 px-6 rounded-lg hover:bg-opacity-80 transition-transform transform hover:scale-105">
+                            ✨ Criar Rascunho de Email
+                        </button>
+                    </div>
+
+                    <div id="gemini-loading" class="hidden text-center mt-6">
+                        <p class="text-[#011936] animate-pulse">A gerar a sua resposta...</p>
+                    </div>
+
+                    <div id="gemini-output" class="hidden mt-6 bg-gray-50 p-4 rounded-lg border border-gray-200 relative">
+                        <button id="copy-btn" class="absolute top-2 right-2 bg-gray-200 hover:bg-gray-300 text-gray-700 text-xs font-bold py-1 px-2 rounded">Copiar</button>
+                        <p id="gemini-result-container" class="text-gray-800"></p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 pt-8 border-t border-gray-300">
+            <p class="text-sm text-gray-500">Este é um guia informativo de apoio. Para informações oficiais e submissão de candidaturas, consulte sempre o portal do <a href="https://www.fundoambiental.pt" target="_blank" class="text-[#00A6ED] hover:underline">Fundo Ambiental</a>.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const ctx = document.getElementById('supportChart').getContext('2d');
+            const data = {
+                labels: ['Forno Elétrico', 'Placa de Indução', 'Placa Convencional', ['Conjunto Placa', 'e Forno'], ['Termoacumulador', 'Elétrico']],
+                datasets: [
+                    {
+                        label: 'Grupos Vulneráveis (I e II)',
+                        data: [369, 369, 179.6, 738, 615],
+                        backgroundColor: '#00A6ED',
+                        borderColor: '#00A6ED',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Público Geral (III)',
+                        data: [300, 300, 146, 600, 500],
+                        backgroundColor: '#FFB10A',
+                        borderColor: '#FFB10A',
+                        borderWidth: 1
+                    }
+                ]
+            };
+
+            const config = {
+                type: 'bar',
+                data: data,
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Valor do Apoio (€)'
+                            }
+                        },
+                        y: {
+                           ticks: {
+                                autoSkip: false
+                           }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Comparativo de Apoios (€)',
+                            font: {
+                                size: 18
+                            },
+                            color: '#011936'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    if (Array.isArray(label)) {
+                                      return label.join(' ');
+                                    } else {
+                                      return label;
+                                    }
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            };
+
+            new Chart(ctx, config);
+
+            // Gemini API functionality
+            const answerBtn = document.getElementById('gemini-answer-btn');
+            const emailBtn = document.getElementById('gemini-email-btn');
+            const userInput = document.getElementById('user-prompt');
+            const loadingIndicator = document.getElementById('gemini-loading');
+            const outputContainer = document.getElementById('gemini-output');
+            const resultText = document.getElementById('gemini-result-container');
+            const copyBtn = document.getElementById('copy-btn');
+            
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+            const systemPrompt = "Aja como um assistente virtual especializado no programa 'e-Lar' de Portugal. As suas respostas devem ser em português (de Portugal), extremamente simples, claras e encorajadoras, destinadas a pessoas com pouca literacia digital. Evite jargão técnico. Foque-se em ser prático e útil.";
+
+            answerBtn.addEventListener('click', () => handleApiCall('answer'));
+            emailBtn.addEventListener('click', () => handleApiCall('email'));
+
+            copyBtn.addEventListener('click', () => {
+                const textToCopy = resultText.innerText;
+                const tempTextArea = document.createElement('textarea');
+                tempTextArea.value = textToCopy;
+                document.body.appendChild(tempTextArea);
+                tempTextArea.select();
+                try {
+                    document.execCommand('copy');
+                    copyBtn.textContent = 'Copiado!';
+                    setTimeout(() => { copyBtn.textContent = 'Copiar'; }, 2000);
+                } catch (err) {
+                    console.error('Falha ao copiar texto: ', err);
+                }
+                document.body.removeChild(tempTextArea);
+            });
+
+            async function handleApiCall(type) {
+                const userQuery = userInput.value.trim();
+                if (!userQuery) {
+                    alert('Por favor, escreva a sua dúvida ou problema na caixa de texto.');
+                    return;
+                }
+
+                loadingIndicator.classList.remove('hidden');
+                outputContainer.classList.add('hidden');
+                answerBtn.disabled = true;
+                emailBtn.disabled = true;
+
+                let finalPrompt = '';
+                if (type === 'answer') {
+                    finalPrompt = `Contexto sobre o programa e-Lar: O programa apoia a troca de equipamentos a gás por elétricos eficientes. É para residentes em Portugal com contrato de eletricidade. Há 3 grupos de beneficiários, sendo os grupos I e II (com Tarifa Social ou de 'Bairros + Sustentáveis') os mais apoiados, incluindo transporte e instalação. A candidatura é online no site do Fundo Ambiental. Dúvida do utilizador: "${userQuery}". Responda diretamente e de forma simples a esta dúvida.`;
+                } else { // email
+                    finalPrompt = `O utilizador precisa de ajuda com a sua candidatura ao programa e-Lar e descreve o seu problema da seguinte forma: "${userQuery}". Crie um rascunho de um email formal mas simples que ele possa enviar para o balcão de atendimento do Fundo Ambiental. O email deve explicar o problema e pedir ajuda. Inclua placeholders como [O SEU NOME] e [O SEU NIF].`;
+                }
+                
+                try {
+                    const result = await callGeminiWithRetry(finalPrompt);
+                    resultText.textContent = result;
+                    outputContainer.classList.remove('hidden');
+                } catch (error) {
+                    resultText.textContent = 'Ocorreu um erro ao tentar gerar a resposta. Por favor, tente novamente mais tarde.';
+                    outputContainer.classList.remove('hidden');
+                    console.error("Erro na chamada à API:", error);
+                } finally {
+                    loadingIndicator.classList.add('hidden');
+                    answerBtn.disabled = false;
+                    emailBtn.disabled = false;
+                }
+            }
+            
+            async function callGeminiWithRetry(prompt, retries = 3, delay = 1000) {
+                for (let i = 0; i < retries; i++) {
+                    try {
+                        const payload = {
+                            contents: [{ parts: [{ text: prompt }] }],
+                            systemInstruction: {
+                                parts: [{ text: systemPrompt }]
+                            },
+                        };
+
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+
+                        const result = await response.json();
+                        const candidate = result.candidates?.[0];
+
+                        if (candidate && candidate.content?.parts?.[0]?.text) {
+                            return candidate.content.parts[0].text;
+                        } else {
+                            throw new Error('Resposta da API inválida ou vazia.');
+                        }
+                    } catch (error) {
+                        if (i === retries - 1) throw error;
+                        await new Promise(res => setTimeout(res, delay * Math.pow(2, i)));
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
